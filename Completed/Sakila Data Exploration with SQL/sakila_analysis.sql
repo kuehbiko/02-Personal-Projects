@@ -1,100 +1,147 @@
-/***************************************************/
-/* SQL for Data Analysis - Weekender Crash Course  */
-/***************************************************/
+-- SQL for Data Analysis - Weekender Crash Course  
 
-/*Before you run these queries, make sure to create Sakila DB and import the related data first*/
-
-/* Email Campaigns for customers of Store 2
-First, Last name and Email address of customers from Store 2*/
-SELECT first_name, last_name,email
+-- Email Campaigns for customers of Store 2
+-- First, Last name and Email address of customers from Store 2
+SELECT 
+	first_name, 
+	last_name,
+	email
 FROM customer
-WHERE store_id = 2;
+WHERE 
+	store_id = 2;
 
-/* movie with rental rate of 0.99$*/
-SELECT COUNT(*) FROM film
-WHERE rental_rate = 0.99;
+-- Movies with a rental rate of $0.99
+SELECT 
+	COUNT(*) 
+FROM film
+WHERE 
+	rental_rate = 0.99;
 
-/* we want to see rental rate and how many movies are in each rental rate categories*/
-SELECT rental_rate, COUNT(*) AS total_number_of_movies
+-- Rental rate and number of movies per rental rate
+SELECT 
+	rental_rate, 
+	COUNT(*) AS total_number_of_movies
 FROM film
 GROUP BY rental_rate;
-
-SELECT rental_rate, COUNT(*) AS total_number_of_movies
+-- Or:
+SELECT 
+	rental_rate, 
+	COUNT(*) AS total_number_of_movies
 FROM film
 GROUP BY 1;
 
-/*Which rating do we have the most films in?*/
-SELECT rating,COUNT(*) AS total_number_of_movies
+-- Which rating has the most number of movies?
+SELECT 
+	rating,
+	COUNT(*) AS total_number_of_movies
 FROM film
 GROUP BY 1;
 
-/*Which rating is most prevalant in each store?*/
-SELECT s.store_id, f.rating, COUNT(f.rating) AS total_number_of_films
+-- Which rating is the most commom in each store?
+SELECT 
+	s.store_id, 
+	f.rating, 
+	COUNT(f.rating) AS total_number_of_films
 FROM store s
-JOIN inventory i ON s.store_id = i.store_id
-JOIN film f ON f.film_id = i.film_id
+JOIN inventory i 
+	ON s.store_id = i.store_id
+JOIN film f 
+	ON f.film_id = i.film_id
 GROUP BY 1,2;
 
-/*We want to mail the customers about the upcoming promotion*/
-SELECT c.customer_id, c.first_name, c.last_name, a.address
+-- We want to mail the customers about the upcoming promotion
+SELECT 
+	c.customer_id, c.first_name, c.last_name, 
+	a.address
 FROM customer c
-JOIN address a ON c.address_id = a.address_id;
+JOIN address a 
+	ON c.address_id = a.address_id;
 
-/* List of films by Film Name, Category, Language*/
-SELECT f.title,c.name,l.name
+-- List of films by Film Name, Category, Language
+SELECT 
+	f.title,
+	c.name,
+	l.name
 FROM film f
-JOIN film_category fc ON fc.film_id = f.film_id
-JOIN category c ON fc.category_id = c.category_id
-JOIN language l ON l.language_id = f.language_id;
+JOIN film_category fc 
+	ON fc.film_id = f.film_id
+JOIN category c 
+	ON fc.category_id = c.category_id
+JOIN language l 
+	ON l.language_id = f.language_id;
 
-/* How many times each movie has been rented out? */
-SELECT i.film_id, f.title, COUNT(i.film_id) AS total_number_of_rental_times
+-- How many times each movie has been rented out?
+SELECT 
+	i.film_id, 
+	f.title, 
+	COUNT(i.film_id) AS total_number_of_rental_times
 FROM rental r
-JOIN inventory i ON r.inventory_id = i.inventory_id
-JOIN film f ON f.film_id = i.film_id
+JOIN inventory i 
+	ON r.inventory_id = i.inventory_id
+JOIN film f 
+	ON f.film_id = i.film_id
 GROUP BY i.film_id
 ORDER BY 3 DESC;
 
-/*Revenue per Movie */
-SELECT i.film_id, f.title, COUNT(i.film_id) AS total_number_of_rental_times, f.rental_rate, COUNT(i.film_id)*f.rental_rate AS revenue_per_movie
+-- Revenue per Movie
+SELECT 
+	i.film_id, 
+	f.title, 
+	COUNT(i.film_id) AS total_number_of_rental_times, 
+	f.rental_rate, 
+	COUNT(i.film_id)*f.rental_rate AS revenue_per_movie
 FROM rental r
-JOIN inventory i ON r.inventory_id = i.inventory_id
-JOIN film f ON f.film_id = i.film_id
+JOIN inventory i 
+	ON r.inventory_id = i.inventory_id
+JOIN film f 
+	ON f.film_id = i.film_id
 GROUP BY i.film_id
 ORDER BY 5 DESC;
 
-/* Most Spending Customer so that we can send him/her rewards or debate points*/
-SELECT c.customer_id, SUM(p.amount) AS "Total Spending"
+-- Customer with the highest spending
+SELECT 
+	c.customer_id, 
+	SUM(p.amount) AS total_spending
 FROM customer c
-JOIN payment p ON c.customer_id = p.customer_id
+JOIN payment p 
+	ON c.customer_id = p.customer_id
 GROUP BY 1
 ORDER BY 2 DESC;
 
-/* What Store has historically brought the most revenue */
-SELECT s.store_id, SUM(p.amount) AS "Total Spending"
+-- Which store has brought the most revenue overall?
+SELECT 
+	s.store_id, 
+	SUM(p.amount) AS "Total Spending"
 FROM store s
-JOIN inventory i ON i.store_id = s.store_id
-JOIN rental r ON r.inventory_id = i.inventory_id
-JOIN payment p ON p.rental_id = r.rental_id
+JOIN inventory i 
+	ON i.store_id = s.store_id
+JOIN rental r 
+	ON r.inventory_id = i.inventory_id
+JOIN payment p 
+	ON p.rental_id = r.rental_id
 GROUP BY 1
 ORDER BY 2 DESC;
 
-/*How many rentals we have for each month*/
-SELECT left(rental_date,7) AS "Month", COUNT(*)
+-- Rentals per month
+SELECT 
+	left(rental_date,7) AS "Month", 
+	COUNT(*)
 FROM rental
-GROUP BY 1;
-
-/* Rentals per Month (such Jan => How much, etc)*/
-SELECT date_format(rental_date,"%M") AS "Month", COUNT(*)
+GROUP BY 1
+ORDER BY 2 DESC;
+-- Or:
+SELECT 
+	date_format(rental_date,"%M") AS "Month", 
+	COUNT(*)
 FROM rental
 GROUP BY 1
 ORDER BY 2 DESC;
 
-/* Which date first movie was rented out ? */
+-- Earliest rental date
 SELECT MIN(rental_date)
 FROM rental;
 
-/* Which date last movie was rented out ? */
+-- Latest rent date
 SELECT MAX(rental_date)
 FROM rental;
 
