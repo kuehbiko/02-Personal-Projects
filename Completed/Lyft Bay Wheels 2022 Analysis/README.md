@@ -8,7 +8,7 @@ We are approaching this dataset from the point of view of the company Lyft with 
 - Do the needs of the customers differ by the type of bike they use? How do they differ and how can the company cater to these needs?
 - Are there certain stations that should be targeted for overnight rebalancing?
 
-Per [Freund et al. pg2](https://people.orie.cornell.edu/shane/pubs/BSOvernight.pdf), 'rebalancing' is an optimization problem that refers to meeting demand at certain stations by relocating them and temporarily increasing station capacity, and is a key challenge faced by operators providing such rideshare services.
+Per [Freund et al. pg 2](https://people.orie.cornell.edu/shane/pubs/BSOvernight.pdf), 'rebalancing' is an optimization problem that refers to meeting demand at certain stations by relocating them and temporarily increasing station capacity, and is a key challenge faced by operators providing such rideshare services.
 
 ## The Data
 The dataset contains over 2.5 million records of individual rides made via a bike-sharing system covering the greater San Francisco Bay area in 2022. The original data is available on [Lyft's System Data page](https://www.lyft.com/bikes/bay-wheels/system-data).
