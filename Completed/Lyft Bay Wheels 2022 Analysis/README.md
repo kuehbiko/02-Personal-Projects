@@ -34,7 +34,7 @@ The demand for bikes are the greatest at Howard St at Beale St, Salesforce Trans
 ## Recommendations
 **Do the needs of the customers differ by membership type? How do they differ and how can the company cater to these needs?**
 
-The preferences of members and casual users are significantly different. Trips by members are shorter and more frequent during the peak hours of weekdays, while casual customers prefer trips that are longer and during off-peak hours or weekends. We can infer that most members are working adults or college students with a fixed schedule and need for reliable transportation. Casual customers on the other hand are more likely to be using the service on a whim, for leisure, or out of enjoyment and not necessity.
+The preferences of members and casual users are significantly different. Trips by members are shorter and more frequent during the peak hours of weekdays, while casual customers prefer trips that are longer and during off-peak hours or weekends. We can infer that most members are working adults or college students with a fixed schedule and need for reliable transportation. Casual customers on the other hand are more likely to make a trip out of convenience or spontaneity. Our data suggest their usage is more for leisure or enjoyment and not necessity.
 
 We recommend providing more electric bikes to members for speed and efficiency, and more classic bikes to casual users.
 
