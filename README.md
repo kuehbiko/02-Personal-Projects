@@ -4,3 +4,4 @@ Title: [Energy Savings from Recycled Materials in Singapore](https://github.com/
 Expected Timeline: 11-15 Sep 2023
 
 ## Completed Projects
+Date - Project Title - Tools - Description
